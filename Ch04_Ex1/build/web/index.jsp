@@ -3,7 +3,7 @@
     Created on : Feb 18, 2017, 12:14:46 PM
     Author     : AdamMunoz
 --%>
-
+<%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@page import="com.apress.faq.User"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
@@ -15,27 +15,14 @@
         <title>Input Page</title>
     </head>
     <body>
-        <%
-        User user = (User)session.getAttribute("user");
-        if(user != null){
-        %>
         <h1>Here is what I got from you earlier:</h1>
-        <p>Your name is <jsp:getProperty name="user" property="firstName" /> <jsp:getProperty name="user" property="lastName" />.</p>
-        <p>You are <jsp:getProperty name="user" property="age" /> years old.</p>
-        <p>You identify as <jsp:getProperty name="user" property="gender" />.</p>
-        <p>You are interested in:
-        <%
-        String[] topics = (String[])session.getAttribute("interests");
-                for (int i = 0; i < topics.length; i++) {
-         %>
-        <br><%= topics[i] %>
-
-        <%
-                                                        }
-        }
-
-        %>
-
+        <p>Name: ${sessionScope.user.firstName} ${sessionScope.user.lastName}</p>
+        <p>Age: ${sessionScope.user.age}</p>
+        <p>Gender: ${sessionScope.user.gender}</p>
+        <p>Interests:
+         <c:forEach var="topic" items="${sessionScope.topics}"   >
+         <c:out value="${topic}" /> <br>
+         </c:forEach>
         <h1>Tell me about yourself!</h1>
         <form action="processUser.jsp" method = "POST" >
             <table>
