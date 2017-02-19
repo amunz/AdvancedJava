@@ -15,14 +15,19 @@
         <title>Input Page</title>
     </head>
     <body>
-        <h1>Here is what I got from you earlier:</h1>
-        <p>Name: ${sessionScope.user.firstName} ${sessionScope.user.lastName}</p>
-        <p>Age: ${sessionScope.user.age}</p>
-        <p>Gender: ${sessionScope.user.gender}</p>
-        <p>Interests:
-         <c:forEach var="topic" items="${sessionScope.topics}"   >
-         <c:out value="${topic}" /> <br>
-         </c:forEach>
+        <!-- Tests to see if the user has told us about themselves yet, and
+        displays their information if they have-->
+        <c:if test = "${sessionScope.user != null}">
+            <h1>Here is what I got from you earlier:</h1>
+            <p>Name: ${sessionScope.user.firstName} ${sessionScope.user.lastName}</p>
+            <p>Age: ${sessionScope.user.age}</p>
+            <p>Gender: ${sessionScope.user.gender}</p>
+            <p>Interests:<br>
+            <!-- Goes through all the checked interests -->
+            <c:forEach var="topic" items="${topics}"   >
+            <c:out value="${topic}" /> <br>
+            </c:forEach>
+         </c:if>
         <h1>Tell me about yourself!</h1>
         <form action="processUser.jsp" method = "POST" >
             <table>
@@ -40,9 +45,9 @@
                 </tr>
                 <tr>
                     <td align ="right">Gender:</td>
-                    <td><input type="radio" name="gender" value="male" checked/>Male<br>
-                    <td><input type="radio" name="gender" value="female"/>Female<br>
-                    <td><input type="radio" name="gender" value="non-binary"/>Non-binary<br>
+                    <td><input type="radio" name="gender" value="Male" checked/>Male<br>
+                    <td><input type="radio" name="gender" value="Female"/>Female<br>
+                    <td><input type="radio" name="gender" value="Non-binary"/>Non-binary<br>
                     </td>
                 </tr>
                 <tr>

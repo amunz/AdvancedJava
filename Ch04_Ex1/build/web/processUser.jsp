@@ -10,6 +10,7 @@
     </head>
     <body>
         <h1>About you</h1>
+        <!-- Stores user information in a session that can be accessed by other pages -->
         <jsp:useBean id="user" scope="session" class="com.apress.faq.User">
             <jsp:setProperty name="user" property="*"/>
         </jsp:useBean>
@@ -19,22 +20,13 @@
         <p>You are ${sessionScope.user.age} years old.</p>
         <p>You identify as ${sessionScope.user.gender}.</p>
         <p>You are interested in:<br>
-
+         <!-- Goes through the checkbox items selected -->
          <c:forEach var="topic" items="${paramValues.topics}"   >
          <c:out value="${topic}" /> <br>
          </c:forEach>
-    <%--
-        String[] topics = request.getParameterValues("topics");
-        if (topics == null) { topics = new String[] {"Nothing."}; }
-        for (int i = 0; i < topics.length; i++) {
-    --%>
-    <%--= topics[i] --%>
+         <!-- Stores user's interests in a session that can be accessed by other pages -->
+         <c:set value="${paramValues.topics}" var="topics" scope="session" />
 
-<%--
-  }
-        session = request.getSession();
-        session.setAttribute("interests", topics);
---%>
     <p>Go to <a href="index.jsp">Talk About Yourself Page</a></p>
     </body>
 </html>
